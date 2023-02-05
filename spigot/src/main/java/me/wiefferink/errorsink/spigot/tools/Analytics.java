@@ -1,11 +1,14 @@
 package me.wiefferink.errorsink.spigot.tools;
 
+import java.util.Arrays;
+
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SingleLineChart;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import me.wiefferink.errorsink.common.Log;
 import me.wiefferink.errorsink.spigot.SpigotErrorSink;
-import org.bstats.Metrics;
-import org.bukkit.configuration.ConfigurationSection;
-
-import java.util.Arrays;
 
 public class Analytics {
 
@@ -15,28 +18,20 @@ public class Analytics {
     public static void start() {
         // bStats statistics
         try {
-            Metrics metrics = new Metrics(SpigotErrorSink.getInstance());
+            Metrics metrics = new Metrics((JavaPlugin) SpigotErrorSink.getInstance(), 1234  );
 
             // Messages sent since the last collection time (15 minutes)
-            metrics.addCustomChart(new Metrics.SingleLineChart("messages_sent") {
-                @Override
-                public int getValue() {
-                    return SpigotErrorSink.getInstance().getAndResetMessageSent();
-                }
-            });
+            metrics.addCustomChart(new SingleLineChart("messages_sent", () -> SpigotErrorSink.getInstance().getAndResetMessageSent()));
 
             // Number of rules defined for each category
             for (String ruleKey : Arrays.asList("events.filters", "events.rules", "breadcrumbs.rules", "breadcrumbs.filters")) {
-                metrics.addCustomChart(new Metrics.SingleLineChart(ruleKey.replace(".", "_")) {
-                    @Override
-                    public int getValue() {
-                        ConfigurationSection ruleSection = SpigotErrorSink.getInstance().getConfig().getConfigurationSection(ruleKey);
-                        if (ruleSection != null) {
-                            return ruleSection.getKeys(false).size();
-                        }
-                        return 0;
+                metrics.addCustomChart(new SingleLineChart(ruleKey.replace(".", "_"), () -> {
+                    ConfigurationSection ruleSection = SpigotErrorSink.getInstance().getConfig().getConfigurationSection(ruleKey);
+                    if (ruleSection != null) {
+                        return ruleSection.getKeys(false).size();
                     }
-                });
+                    return 0;
+                }));
             }
 
             Log.debug("Started bstats.org statistics service");

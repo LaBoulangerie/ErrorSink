@@ -252,7 +252,7 @@ public class SpigotErrorSink extends JavaPlugin implements ErrorSinkPlugin {
 	public String getServerName() {
 		String serverName = getConfig().getString("serverName");
 		if(serverName == null || serverName.isEmpty()) {
-			serverName = Bukkit.getServerName();
+			serverName = Bukkit.getName();
 		}
 
 		// Server name can never be null/empty, this will cause Raven to lookup the hostname and kills the server somehow

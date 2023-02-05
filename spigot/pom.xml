@@ -6,7 +6,7 @@
     <parent>
         <artifactId>errorsink</artifactId>
         <groupId>me.wiefferink</groupId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.3.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,15 +25,15 @@
         <dependency>
             <groupId>me.wiefferink</groupId>
             <artifactId>errorsink-common</artifactId>
-            <version>${project.version}</version>
+            <version>1.3.0</version>
             <scope>compile</scope>
         </dependency>
 
         <!-- Bukkit API -->
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.19-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -42,72 +42,12 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>1.1</version>
+            <version>3.0.0</version>
         </dependency>
 
     </dependencies>
 
     <profiles>
-        <!-- Copy the jar file to a test server, activate by using -DcopyResult="/path/to/test/server" -->
-        <profile>
-            <id>test-locally</id>
-            <activation>
-                <property>
-                    <name>copyResult</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
-                        <configuration>
-                            <target>
-                                <copy file="./target/${project.build.finalName}.jar"
-                                      tofile="${copyResult}\${project.build.finalName}.jar"/>
-                            </target>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- Package the source files in a jar, activate by using -Dsources -->
-        <profile>
-            <id>package-sources</id>
-            <activation>
-                <property>
-                    <name>sources</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <!-- Produce javadoc files, activate by using -Djavadoc -->
         <profile>
             <id>generate-javadoc</id>

@@ -76,6 +76,7 @@ events:
         - "An update for FastAsyncWorldEdit is available. (.*)"
         - "Legacy plugin (.*) does not specify an api-version."
         - "Loaded class (.*) from (.*) which is not a depend or softdepend of this plugin."
+        - "Can't keep up! Is the server overloaded? Running (.*)ms or (.*) ticks behind"
 
   # Add information to events and/or change their properties
   rules:
