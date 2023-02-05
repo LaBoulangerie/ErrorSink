@@ -50,8 +50,8 @@ events:
         - "{player} was kicked due to keepalive timeout!"
         - "{player} was kicked for floating too long!"
         - "Couldn't verify username because servers are unavailable"
-        - "(.*) (vehicle of {player}) moved wrongly! (.*)"
-        - "(.*) (vehicle of {player}) moved too quickly! (.*)"
+        - "(.*) \\(vehicle of {player}\\) moved wrongly! (.*)"
+        - "(.*) \\(vehicle of {player}\\) moved too quickly! (.*)"
         - "Username '{player}' tried to join with an invalid session"
         # Spigot bug
         - "^handleDisconnection\\(\\) called twice$"
