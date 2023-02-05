@@ -42,13 +42,17 @@ events:
       matchLevel: ["INFO", "DEBUG", "TRACE", "OFF"]
     spam:
       matchMessage:
-        # Spammy line-by-line exceptions coming from Skrips
-        - "^#!#!"
         # One line warning message before printing actual exceptions from async threads
         - "^Exception in thread \"(Craft Scheduler )?Thread - \\d+\" $"
         # Vanilla/Spigot problems that cannot be fixed (could indicate lag though)
         - "^{player} moved too quickly!"
         - "^{player} moved wrongly!"
+        - "{player} was kicked due to keepalive timeout!"
+        - "{player} was kicked for floating too long!"
+        - "Couldn't verify username because servers are unavailable"
+        - "(.*) (vehicle of {player}) moved wrongly! (.*)"
+        - "(.*) (vehicle of {player}) moved too quickly! (.*)"
+        - "Username '{player}' tried to join with an invalid session"
         # Spigot bug
         - "^handleDisconnection\\(\\) called twice$"
         # Statistic warnings because of upgrade to 1.12 (renamed to advancements)
@@ -67,6 +71,11 @@ events:
         - "^Whilst this makes it possible to use BungeeCord, unless access to your server is properly restricted, it also opens up the ability for hackers to connect with any username they choose.$"
         - "^To change this, set \"online-mode\" to \"true\" in the server.properties file.$"
         - "^Please see http://www.spigotmc.org/wiki/firewall-guide/ for further information.$"
+    ignoredWarns:
+      matchMessage:
+        - "An update for FastAsyncWorldEdit is available. (.*)"
+        - "Legacy plugin (.*) does not specify an api-version."
+        - "Loaded class (.*) from (.*) which is not a depend or softdepend of this plugin."
 
   # Add information to events and/or change their properties
   rules:
