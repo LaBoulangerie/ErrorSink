@@ -13,6 +13,12 @@
     <packaging>jar</packaging>
     <artifactId>errorsink-common</artifactId>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <!-- Sentry-Java log4j2 bindings to send events to Sentry.io -->
         <dependency>
@@ -46,7 +52,5 @@
             <artifactId>configurate-yaml</artifactId>
             <version>3.3</version>
         </dependency>
-
     </dependencies>
-
 </project>
